@@ -1,5 +1,5 @@
 import torch
-from VIT_model import load_vit_model
+from VIT_Model import load_vit_model
 from data import get_data_loaders_cifar10
 
 def evaluate_model(model, dataloader, device):

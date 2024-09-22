@@ -2,7 +2,7 @@ import torchvision.transforms as transforms
 from torchvision.datasets import CIFAR10
 from torch.utils.data import DataLoader
 
-def get_data_loaders_cifar10(batch_size=32):
+def get_data_loaders_cifar10(batch_size=64):
     # Define image transformations
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
