@@ -1,6 +1,6 @@
 import torch
 from model import load_vit_model
-from data import get_data_loaders
+from data import get_data_loaders_cifar10
 
 def evaluate_model(model, dataloader, device):
     model.eval()
@@ -21,16 +21,15 @@ def evaluate_model(model, dataloader, device):
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-    # Load data
-    data_dir = "data" #add path
-    dataloader, num_classes = get_data_loaders(data_dir)
+    # Load CIFAR-10 dataset
+    train_loader, test_loader, num_classes = get_data_loaders_cifar10()
     
     # Load model
     model = load_vit_model(num_classes, device)
     
-    # Evaluate model
-    accuracy = evaluate_model(model, dataloader, device)
-    print(f"Accuracy on the test set: {accuracy:.2f}%")
+    # Evaluate model on CIFAR-10 test dataset
+    accuracy = evaluate_model(model, test_loader, device)
+    print(f"Accuracy on CIFAR-10 test set: {accuracy:.2f}%")
 
 if __name__ == "__main__":
     main()
