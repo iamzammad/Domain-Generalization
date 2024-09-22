@@ -1,0 +1,2 @@
+Discriminative - ViT + EfficientNet
+Contrastive - CLIP
