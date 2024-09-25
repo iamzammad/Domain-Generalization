@@ -2,7 +2,7 @@ import torchvision.transforms as transforms
 from torchvision.datasets import SVHN
 from torch.utils.data import DataLoader
 
-def get_data_loaders_svnh(batch_size=64):
+def get_data_loaders_svhn(batch_size=64):
     # Define image transformations
     transform = transforms.Compose([
         transforms.Resize((224, 224)),
