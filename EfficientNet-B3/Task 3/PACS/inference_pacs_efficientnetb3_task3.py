@@ -1,6 +1,6 @@
 import torch
 from efficientnet_b3_model import load_efficientnetb3_model
-from data_cifar10 import get_data_loaders_cifar10
+from data_pacs import get_data_loaders_pacs
 from sklearn.metrics import confusion_matrix
 import numpy as np
 
@@ -8,8 +8,8 @@ def evaluate_model(model, dataloader, device):
     model.eval()
     correct = 0
     total = 0
-    all_labels=[]
-    all_predicted=[]
+    all_labels = []
+    all_predicted = []
     
     with torch.no_grad():
         for inputs, labels in dataloader:
@@ -32,7 +32,7 @@ def evaluate_model(model, dataloader, device):
 
     print("Confusion Matrix")
     print(conf_matrix)
-    print(f"Accuracy on CIFAR-10 test set: {accuracy:.2f}%")
+    print(f"Accuracy on PACS test set: {accuracy:.2f}%")
     print("Classwise Accuracies:")
     print(classwise_accuracies}
     
@@ -40,13 +40,21 @@ def evaluate_model(model, dataloader, device):
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-    # Load CIFAR-10 dataset
-    train_loader, test_loader, num_classes = get_data_loaders_cifar10()
+    # Load SVHN dataset
+    train_loader, test_loader_art, test_loader_cartoon, test_loader_sketches, num_classes = get_data_loaders_pacs()
     
     # Load model
-    model = load_efficientnetb3_model(num_classes, device,task='task2')
+    model = load_efficientnetb3_model(num_classes, device,task='task31')
     
-    evaluate_model(model, test_loader, device)
+    print("Evaluating on Art Dataset")
+    evaluate_model(model, test_loader_art, device)
+
+    print("Evaluating on Cartoon Dataset")
+    evaluate_model(model, test_loader_cartoon, device)
+
+    print("Evaluating on Sketches Dataset")
+    evaluate_model(model, test_loader_sketches, device)
+    
     
 
 if __name__ == "__main__":
