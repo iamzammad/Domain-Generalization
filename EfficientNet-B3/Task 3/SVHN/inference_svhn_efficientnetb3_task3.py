@@ -1,12 +1,15 @@
 import torch
 from efficientnet_b3_model import load_efficientnetb3_model
-from svhn import get_data_loaders_svhn
+from data_svhn import get_data_loaders_svhn
 from sklearn.metrics import confusion_matrix
+import numpy as np
 
 def evaluate_model(model, dataloader, device):
     model.eval()
     correct = 0
     total = 0
+    all_labels = []
+    all_predicted = []
     
     with torch.no_grad():
         for inputs, labels in dataloader:
@@ -15,8 +18,10 @@ def evaluate_model(model, dataloader, device):
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
+            all_labels.extend(labels.cpu().numpy())
+            all_predicted.extend(predicted.cpu().numpy())
 
-    conf_matrix=confusion_matrix(labels,predicted)
+    conf_matrix=confusion_matrix(all_labels,all_predicted)
     classwise_accuracies=np.zeros((10,1))
     for i in range(10):
         total_class_labels=0
@@ -35,7 +40,7 @@ def evaluate_model(model, dataloader, device):
 def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     
-    # Load CIFAR-10 dataset
+    # Load SVHN dataset
     train_loader, test_loader, num_classes = get_data_loaders_svhn()
     
     # Load model
