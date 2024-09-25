@@ -1,2 +1,2 @@
-Discriminative - ViT + EfficientNet
+Discriminative - ViT + EfficientNet-B3
 Contrastive - CLIP
