@@ -10,7 +10,7 @@ import time
 from VIT_Model import load_vit_model
 from data import get_data_loaders_cifar10
 
-def train_model(model, train_loader, criterion, optimizer, device, num_epochs=5):
+def train_model(model, train_loader, criterion, optimizer, device, num_epochs=3):
     model.train()
     scaler = GradScaler()  
     
@@ -51,6 +51,7 @@ def main():
     
     train_loader, test_loader, num_classes = get_data_loaders_cifar10()
     model = load_vit_model(num_classes, device)
+    
 
     for name, param in model.named_parameters():
         print(name, param.requires_grad)
@@ -62,7 +63,7 @@ def main():
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=1e-4)
 
-    train_model(model, train_loader, criterion, optimizer, device, num_epochs=5)
+    train_model(model, train_loader, criterion, optimizer, device, num_epochs=3)
 
     torch.save(model.state_dict(), 'fine_tuned_vit.pth')
 

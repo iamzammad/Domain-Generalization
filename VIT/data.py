@@ -19,3 +19,4 @@ def get_data_loaders_cifar10(batch_size=64):
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     return train_loader, test_loader, 10 
+
