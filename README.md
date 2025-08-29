@@ -1,6 +1,6 @@
 # Domain Generalization
 
-This repository contains code, experiments, and reports for **EE5102/CS6302 - Advanced Topics in Machine Learning, Assignment 1: Deep Models and Domain Generalization**. The focus is on exploring how modern deep learning models generalize across domains, particularly in handling **Out-of-Distribution (OOD)** data.
+This repository contains code, experiments, and reports of Deep Models and Domain Generalization. The focus is on exploring how modern deep learning models generalize across domains, particularly in handling **Out-of-Distribution (OOD)** data.
 
 ## 📌 Overview
 
